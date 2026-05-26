@@ -1270,24 +1270,6 @@
       window.open(data.signedUrl, "_blank");
     }
 
-      const isPremium = currentProfile?.status === "premium" || currentProfile?.role === "admin";
-      if (!isPremium) {
-        alert("Premium access required. Subscribe to download original files.");
-        return;
-      }
-
-      const { data, error } = await supabaseClient.functions.invoke("create-download-link", {
-        body: { gallery_id: itemId }
-      });
-
-      if (error || !data?.url) {
-        alert("Premium account verified, but the secure download function is not connected yet. Next step: create the Supabase Edge Function named create-download-link.");
-        return;
-      }
-
-      window.open(data.url, "_blank");
-    }
-
     function closeModal() {
       modal.classList.remove("show");
       modal.setAttribute("aria-hidden", "true");
