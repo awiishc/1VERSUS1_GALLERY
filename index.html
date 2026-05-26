@@ -1252,6 +1252,25 @@
       }
 
       const isPremium = currentProfile?.status === "premium" || currentProfile?.role === "admin";
+
+      if (!isPremium) {
+        alert("Premium access required. Subscribe to download original files.");
+        return;
+      }
+
+      const { data, error } = await supabaseClient.functions.invoke("create-download-link", {
+        body: { itemId: itemId }
+      });
+
+      if (error || !data?.signedUrl) {
+        alert(error?.message || "Could not create secure download link.");
+        return;
+      }
+
+      window.open(data.signedUrl, "_blank");
+    }
+
+      const isPremium = currentProfile?.status === "premium" || currentProfile?.role === "admin";
       if (!isPremium) {
         alert("Premium access required. Subscribe to download original files.");
         return;
