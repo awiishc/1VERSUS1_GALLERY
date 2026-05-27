@@ -1310,102 +1310,6 @@
         justify-content: flex-start;
       }
     }
-
-
-    /* Tournament video preview modal */
-    .video-modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background: rgba(0,0,0,.92);
-      backdrop-filter: blur(12px);
-      z-index: 95;
-    }
-
-    .video-modal.show {
-      display: flex;
-    }
-
-    .video-box {
-      width: min(1100px, 96vw);
-      background: #050505;
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 30px 100px rgba(0,0,0,.86), 0 0 42px rgba(216,13,22,.13);
-      position: relative;
-      padding: 52px 14px 14px;
-    }
-
-    .video-box h2 {
-      position: absolute;
-      left: 18px;
-      top: 14px;
-      font-family: Oswald, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      font-size: 18px;
-      color: white;
-    }
-
-    .video-frame-wrap {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-    }
-
-    .video-frame-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      background: #000;
-    }
-
-    .video-close,
-    .video-fullscreen {
-      position: absolute;
-      top: 12px;
-      width: 34px;
-      height: 34px;
-      border: 1px solid rgba(255,255,255,.2);
-      background: rgba(0,0,0,.5);
-      color: white;
-      cursor: pointer;
-      font-family: Oswald, sans-serif;
-      font-size: 16px;
-      display: grid;
-      place-items: center;
-    }
-
-    .video-close {
-      right: 12px;
-      font-size: 21px;
-    }
-
-    .video-fullscreen {
-      right: 54px;
-      font-size: 12px;
-      letter-spacing: .8px;
-      text-transform: uppercase;
-      width: auto;
-      padding: 0 10px;
-    }
-
-    .video-close:hover,
-    .video-fullscreen:hover {
-      border-color: var(--red);
-      background: rgba(216,13,22,.24);
-    }
-
-    @media (max-width: 760px) {
-      .video-modal {
-        padding: 10px;
-      }
-
       .video-box {
         width: 100%;
         padding: 48px 10px 10px;
@@ -1436,7 +1340,7 @@
 <p>Capturing your moments through intense tournament action, unforgettable highlights and official match video from the court</p>
 <div class="hero-buttons">
 <a class="button primary" href="#gallery">Explore Gallery</a>
-<a href="#" class="button" id="tournamentVideoBtn">Tournament Video</a>
+<a href="https://drive.google.com/file/d/11Dzub-Sz0miVOkGWAZfUoGP95iWcU2q-/view?usp=sharing" class="button" id="tournamentVideoBtn" target="_blank" rel="noopener noreferrer">Tournament Video</a>
 </div>
 </div>
 </section>
@@ -1628,17 +1532,6 @@
   </div>
 </div>
 
-
-<div aria-hidden="true" class="video-modal" id="videoModal">
-  <div class="video-box" id="videoBox">
-    <h2>Tournament Video</h2>
-    <button aria-label="Fullscreen video" class="video-fullscreen" id="videoFullscreen" type="button">Fullscreen</button>
-    <button aria-label="Close video preview" class="video-close" id="videoClose" type="button">×</button>
-    <div class="video-frame-wrap" id="videoFrameWrap">
-      <iframe id="videoFrame" src="" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
 
 <footer class="footer"><span class="copyright-mark">© </span><span class="footer-brand">1VERSUS1</span><span class="footer-rights"> ALL RIGHT RESERVE 2026</span></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2342,48 +2235,6 @@
     adminUserSearch.addEventListener("keydown", event => {
       if (event.key === "Enter") loadAdminUsers();
     });
-
-
-    const tournamentVideoBtn = document.getElementById("tournamentVideoBtn");
-    const videoModal = document.getElementById("videoModal");
-    const videoClose = document.getElementById("videoClose");
-    const videoFrame = document.getElementById("videoFrame");
-    const videoFrameWrap = document.getElementById("videoFrameWrap");
-    const videoFullscreen = document.getElementById("videoFullscreen");
-    const TOURNAMENT_VIDEO_EMBED_URL = "https://drive.google.com/file/d/11Dzub-Sz0miVOkGWAZfUoGP95iWcU2q-/preview";
-
-    function openTournamentVideo(event) {
-      if (event) event.preventDefault();
-      videoFrame.src = TOURNAMENT_VIDEO_EMBED_URL;
-      videoModal.classList.add("show");
-      videoModal.setAttribute("aria-hidden", "false");
-    }
-
-    function closeTournamentVideo() {
-      videoModal.classList.remove("show");
-      videoModal.setAttribute("aria-hidden", "true");
-      videoFrame.src = "";
-    }
-
-    async function fullscreenTournamentVideo() {
-      const target = videoFrameWrap || videoFrame;
-      try {
-        if (target.requestFullscreen) await target.requestFullscreen();
-        else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-      } catch (error) {
-        window.open(TOURNAMENT_VIDEO_EMBED_URL, "_blank");
-      }
-    }
-
-    if (tournamentVideoBtn) tournamentVideoBtn.addEventListener("click", openTournamentVideo);
-    if (videoClose) videoClose.addEventListener("click", closeTournamentVideo);
-    if (videoFullscreen) videoFullscreen.addEventListener("click", fullscreenTournamentVideo);
-    if (videoModal) {
-      videoModal.addEventListener("click", event => {
-        if (event.target === videoModal) closeTournamentVideo();
-      });
-    }
-
     authLogin.addEventListener("click", async () => {
       const email = document.getElementById("authEmail").value.trim();
       const password = document.getElementById("authPassword").value;
@@ -2478,7 +2329,6 @@
         closeModal();
         closeAuth();
         closeAdminDashboard();
-        closeTournamentVideo();
       }
     });
 
