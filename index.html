@@ -1184,12 +1184,139 @@
       }
     }
 
+
+    .username-badge {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,.72);
+      font-family: Oswald, sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .username-badge::before {
+      content: "@";
+      color: var(--red);
+      text-shadow: 0 0 10px rgba(216,13,22,.75);
+    }
+
+    @media (max-width: 760px) {
+      .username-badge {
+        font-size: 9px;
+        max-width: 82px;
+        letter-spacing: .65px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .username-badge {
+        display: none !important;
+      }
+    }
+
+
+    .admin-user-tools {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .admin-user-search {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin: 12px 0 14px;
+    }
+
+    .admin-user-search input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: white;
+      padding: 12px 13px;
+      outline: none;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    .admin-users-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .admin-user-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.035);
+    }
+
+    .admin-user-name {
+      font-family: Oswald, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      font-size: 16px;
+    }
+
+    .admin-user-meta {
+      color: rgba(255,255,255,.56);
+      font-size: 11px;
+      margin-top: 3px;
+      word-break: break-all;
+    }
+
+    .admin-user-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .admin-user-controls select {
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: white;
+      padding: 9px 10px;
+      outline: none;
+      font-family: Inter, Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .admin-user-controls select option {
+      background: #111;
+      color: white;
+    }
+
+    @media (max-width: 760px) {
+      .admin-user-search {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-user-card {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-user-controls {
+        justify-content: flex-start;
+      }
+    }
+
 </style>
 </head>
 <body>
 <header class="nav">
 <a aria-label="Home" class="brand" href="#"><img alt="1VERSUS1 logo" class="brand-logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABJ8AAAFNCAYAAACuQ87yAAAe/klEQVR4nO3dS24jR7oG0FSjFtATw97/6gx40jtQDwi5VCqSIpnx+B/nAI07ulY+Ir6M+Jhkvb2/vx8AiZ0NsbchRwEAAMBVP3YfAMATtOUAAADJKJ+AyJRNAAAAySmfgGhWFU6+bgcAALCA8gmIYlbppGQCAADYSPkE7DSjcFI2AQAABKJ8AnYYXTopnAAAAIJSPgGrjSyelE4AAADBKZ+AVZROAAAADSmfgNmUTgAAAI0pn4CZRhVPSicAAICklE/ADN52AgAA4DgO5RMwnredAAAA+JfyCRhJ8QQAQASvrkutQ2EC5RMwgtIJAIBdRv7kAzCB8gk4S/EEAMBqCidIRPkEnKF4AgBglRmFk3UoLKB8Al6leAIAYAX/kjIkp3wCXqF4AgBgNmtOKEL5BDzLIgAAgJlGrDetNSEQ5RPwDMUTAAAznV1vWmdCQMon4FGKJwAAZlE6QWHKJ+ARiicAAGY5s9a0voQElE/AdxRPAADM4G0naEL5BNyjeAIAYAZvO0Ej/9l9AEB5FgcAAHymeIJmlE/ALf6JWwAARlM8QUPKJ+CaUV+3AwCAD4onaEr5BHzld54AABhN8QSNKZ+AzxRPAACMpniC5pRPwGgWCAAAfFA8Acon4F9+5wkAgJEUT8BxHMon4MLX7QAAGEnxBPxL+QSMYpEAAMBxKJ6AL5RPgK/bAQAQgeIJinp7//NPG89b/v5b+FGdr9sBADCSt55o639//KFfucGbT8BZFgkAAByH4gm4QfkEfWnlAQCIQPEExSmfoCdftwMAYCQfbAI3vb2/38mIv/6qHSB+04m+Rsxt8wcAgOPwdTv4VvXfg/rvP//cncv3y6drMhdSyiY4Dm89AQAwlvIJXpC5kPqubPrq+fLpQ5YSSuEEX3nrCQCAURRPcFKWEurZwumz18unD5FLKMUTfOWtJwAARlI+wSCRS6gzxdNxjCifjiNeAaV0gmsUTwAAjKR4gsGiFVBnS6cPY/61u0hlT6RjAQAAqEnxBBOMKntGGHksY8qn44hR+kQ4BojJW08AAAAJRCigRh/DuPLpOJQ/AAAA9YX6WhBUFKGAGmls+XQc+wooxRfc4q0nAACisKaEB+0qoGb83fHl03GsL4IUTwAAACt46wkWWl1Azfp7c8onIApvPQEAEIU1JTQ1r3xa9TaSt54AAACAola9/TTz73jzCery1hMAACP5yh3wktzlk7eeAAAAMrB3g8Bmv101t3xSDsEu3noCAGAkbz3BRrv+5btRcr/5BAAAAEBoyieox1tPAABEYl0JzeUtn3ylDwAAYAVfuYPCVnylb375pCSClbz1BAAAUFDm333K++YTAAAA0aXdLAPjKJ8AAAC4xVfugNOUT1CHr9wBAAAQjvIJAAAAgGmUT1CDt54AABjt7BrT2hI4jkP5BAAAAMBEyifgg0+mAAAAGE75BPn5F0gAAAAIS/kEkM/7oXQEAObye0/AMD92HwBwih8a70PZBGTyamZ5HgF8T8aSjvIJIC6FExDd6Jx65r9nEwVUJ2MpQ/kEEIOiCcggUlY9ciw2T0AmMpaylE+Ql6/c5RNpQQHwqMzZNfLYPS/pJPO8zybztZaxPEz5NF7m8NhByORmvLOT8TefjO7L/MrBffqd3CIDc5d2lE/QmwUacM93i2MZUo8NETCC58N1Mpa2lE+QkwcXEMG1LLLhyMlzBWAeGUt7yqfxbi26Bc6FTUktxjs7GX8xfb7+Mj8Hcyave3Os8n2VLWRSeS7Cw5RP63x+SHYLIAuEsTL80Hjn8c5+xl8cX6+/50Es5kdtH/Otyn2WH2RTZe7BEP/ZfQBNvR19HqBdzpPbjAF2Mv5ieT8sxqNwH/qosO7MfvzZyIfzXEP4Qvm0V/UHafXzy2z1vamw8CUvYy+e90MRtYvr3lfWLMx63PQkY+EG5dN+VTflFc8pguwPM+OCXapmbQUW6uu4zmTLwWzHS28yFu7wm09xvB0Cix6MdeCaj1yw2Zwjeu76BwTWyfIclgVkEn1OyVi2Uz7FkmUx8B2Lhdgi3J8qY518jL343o8YOVVJlDH/yn299v8T5XyYRwbk1u3+RckkGUtoyqd4bIy4xbiAMeRsfN6CGmfnWJ91/77+d83n58lBGEPGwoOUTzFZENCBcQ58x1tQ5+zK2B3/qMWHWedsHK7jWpOFjJ3zNyjKD44zmuCIzf2BC3MhDz9I/pod1yzCD/tHOIYsXCeukbePkbHwJG8+xeWtED6rOhaijvMZD9WI50lMsxd1Wceit6Aet2tTFMnH8WQd70BcMlbG8gJvPsUWLWTIzXja6+3waVE0Xe9F5rFokRtP9LEU+dgAviNjKUP5BLBe9IUEfWQsohRQ9628PlnGTZbjxL0iPhn7uyzHyWbKp/hMZqpvtDqP8WybfmrLNB6r5+KrbIpuyzS+gZhk7G0ylm8pn6AHD4PY3J99XPvfZVlAKqD2yTA+bsl87DO4HhBP5nmZ+diZTPmUg0kM9ZnnRJNhTCqgflp1LTKMi+9UOAdgLRn7uArnwATKJ0azERjL9ezFw5poMoxJOWlTBDCTjIUBlE95CCNeZezk4n4RTYYxqYCaL8M4eEa18wFyq5ZJ1c6HAZRPEJfNVF8e2ESTYUx2zcyu5z1ChnEN7CVjXydj+YXyKRcTmGcZM3m5d0RjTPZV+d5XPjcgh8o5VPnceJLyiRl8QgBQU/RFZLfnT7fzBVhJxsJAyieIycOO44i/0aen6ONSfo4V/X6P0OEcgZg65E+Hc+QByqd8TF4eZazU4D4SkXG534qSzX2+cB2gHxm7juvQhPKJWXzyDFBb5MWiZxDPijyeAbKTsSifkjJ5a7NpAjhPlgIABKF8gpoUlLW4n0RlbO7h6yBzdDxn4Hcydo6O58wnyidm8qkzADt5DgEABKB8yktzXNOIjZKxUZP7SlTGJgAAdymfAADy8DbXXMpU6E3GziVjG1M+MZsAB6gv8mLScwgAYDPlU26RF/s8z1fuAIjAswRgHhlLS8onVvCpM0B9kRfTnkMAABspn/KLvNgHxjLfoTcl2hqyFnqSsWvI2KaUTxCDr9wBAABQkvKJVXySAFCfEhwAgN8on2qw2M/NW08A8/kQBABgE+UTAAAAANMon+rI8OaLT50B6svwPMrIM3QP4xl6kLF7yNhGlE+wl6/cAQAAUJryCQCAz7wBcPlgx4c7wAwyVsa2pHyqJcMEFrZjZbjnAFF4BgEAbKB8gn1sggAAAChP+QSQy9vhVWXiMz7z8wEJwDwylnaUT/VkWPAL2zEy3GsAAACaUz7BHgo4AAAAWlA+1eSNGADgLB+UAMwjY2lF+cQuwvYcBSMAK3heA8wjY2lD+QTrecgAAADQhvKpLm/G1OXeAvSy+0OL3X8fYKbdGbf778MSyid26hi0Hc8ZgHMifOjg+QVUJWNhAeVTbRGCFACoweYIYB4ZS2nKJ8hFoQhwjsU9AMBiyid267QJ6HSuAFEp8c/xLAOYR8ZSlvKpPotsAGAkmyOAeWQsJSmfIA9FIgBRvB82SACzyFjKUT4RQYdg7XCOAPTj+QYwj4ylDOVTD96Yyc89BCAqmyOAeWQsJSifAAA4y+YIYB4ZS3rKpz6ivzlTOVArnxsAfPC8A5hHxpKa8gnii14cAsAHP5ILMI+MJS3lEwBAfNk+iLA5AjKRsTCZ8qmX6KFaMUQrnhMAPMIzEGAeGUsqyieILXphCAD32BwBzCNjSUP51I8yA4CuPAP38BslAPPIWFJQPhFNpeA8ey42SUBWlbI8kuzPBeMCiEzGwkTKJwAAVrE5AphHxhKW8qmn7K1+BoKfDN4Pr2oD68kcgHlkLCEpn4hIYCoIAbiuyvNB8Q1EJGNhEuUTANBBlQ1FNTZHAPPIWMJQPvVlET6PkAc6k4E8y5gBmEfGEoLyiag6h6RiEIB7Kj4nfEUEiELGwgTKp94qBisAkJfNEcA8MpZtlE8w1tlAVwgCjCdbc7E5AphHxrKF8onIBCNALnJ7neqFmrEE7CRjYTDlE9WDFQDIyW+UAMwjY1lK+QTj+ModmVhsMFrUMVU5Wyuf22dRxxZQm4yFgZRPHEfsYBWGAID1AMA8MpbplE8AQFWRP1wZpcM5frA5AlaTsTCI8gnG8JU7oDML1r06PUP8RgmwmoyFAZRPfIgcqgIQxjKngOzkGMA8MpbhlE+wX+TiD+A7UReo3bK12/keR9yxB9QjY+Ek5ROcJ5jJxHhlJOMpFpsjgHlkLJygfOKzyIEq+AB4VOTnGeP5jRKAeWQsQyif4Bw/NE4mFg6MZDzF1Pm5YkwCs8lYeJHyia86ByoAj4m8APUc630NIo9NoAYZCy9QPpFJtbDr/OBivWrzh30ijyW5+lPnaxF5jAI1yFh4kvIJXid4ycJYhZ66b45kHzCTjIUnKJ+4pnOQQjUWBowUeTx5dnFN5DELkJ2M5WHKJ7KpEnA2SaxQZb4QQ+TxJFNvc21ij10gNxkrY3mQ8olbBOl9QpbojFFG8Wp9fp7pxjEwj4yVsTxA+QRQi4c/I2UYSxb9j3GdLjKMaSAfGXshY7lJ+URG2UPNw4lZss8NYskwnuTpc1yviwxjG8hHxl7IWK5SPnGPAL1OoBLJ++FtJ8bKMp48o17zdrh2x5FjjAP5yNgLGctvfuw+AHjR+5Ez2DMec0cemHSUadzL0vPejlz3fIaP8zeegNFkrIzlC28+AUBvWd50+mARO45reZFp/AN5yNgLGctxHMonvic0fyU8gSqylU7H4Zk0g2t6kW0uADnI2AsZi/KJ1LKFmIcPsNP7kfs3wmToPK7tRcZ5AcQnYy9kbHN+84lH+M7yhWsARFc1pyzc5/u4xlXH0KOy/qYkEJuMvZCxjSmfACCXbgtXi9S1fODkR3KBeWSsjG3L1+7ILkt4C1eA5/jnqvdx3S+yrDGAXGTshYxtRvnEo7qHpHAEWKf7MycC9+DC8x+YQcZeyNhGlE8wn4cLMFLlN4Iqn1tG7seFzREwg4y9kLFNKJ94RtRwFFhAR1Ez+RUW4LG5N9YawDwyVsa2oHyC7wlDIKrsC1alUx7uk/UAMI+MlbHlKZ9gLg8SYLZsOfN2KJ2ycs9sjoB5ZKyMLU35xLOihqKgAjqLms3H8WvZFPk4eYx7aM0BzCNjZWxZP3YfAAQn/HrK9OA3RvnwdqwfD5nmCuN83PfO+fN+GP/AHDJWxpbkzSeYR2CygjdK2On96L047k7uAMwjYylF+cQrogahDRDdKaHYdf/lb1+dM8e4B2aTsZShfILbzgRe5wcF+xl/7GCR2FfnzDHugdlkLCUon3hV5xCEDMzRvnbee1/D66vzm5fGPDCbjCU95RPVCCf4qesihf33Xhb3tXvsAVQmY0lL+QTX+codVRiP7KKA6qtj7hjvwCoylpSUT5zRMfggI3O1pwj33WKxrwjjbzXjHVhFxpKO8omKzgaTYKOijosUYpCpfXX8jRLjHVhFxpKK8omzugXed1wPIJIomWSx+Joq1y3KOAT4TMbCQsongD4sTtipyiJ/lfcv/ze7TvlT5Z5BZTI2ryr3rB3lE1W9Gkp+aByoJlI2WTD2FmksAlQjYwlN+cQIgg7yMF/Z7f1QQn2n8vXp8hslle8hZFd5fspYwlI+AUB9HRaiVVW9d1XP6zObI4ivahZVPa/PZGwyyicqezaQfOWOLozXnqLdd4vG6zpdl2hjEqhPxsImyidGEW4APKvTJuARX69Hh2dr9XM0xiEOGVuPjE1E+QTnVQ91oI6IeWXhSJffKAHYQcYSgvKJkSKG2qObGpsfgH1kcM9P5L+qes7GN+wnY+ues4xNQvkE0FPVBQjfi3rvLR45jrjjE6ACGcs2yic4R4ADjNO1gOp63rd4tgIjydhfyVi2UD4xWsQw++6B44EEdBMxq/nJ/al3Daw1II5q+fKKatdAxiagfAKAnqIuPLstILud7zP8SC5wloy9TcaylPKJGTKF2JkHUqbzBMjEZoHPqjxvjWsgIhnLEsonuhBGAL+LvODsmtuR78lOrgswgiy5znVhOuUTvEZAA3BW14LtVZ69EF+keSpjnxPp3lGQ8olZMoSXBxJA7LyW03wVebw+wpgGIpOxTKN8ohNhBJBP1ey+dl7ZF/2ruE51VZ3vrCdjX+c6MYXyCZ4nkKni7fAvnXARfQzYkPJV9DELkJmMZTjlEzNFDi0bGQDILfI64x5rECADGctQyie6EUYA10VfZFbKb18HGcd1g3Gq5KyMHcd1YxjlE7NVC6xq5wPwWfSMq7IxYqzo4xYgMxnLEMonOrJ5AchLhnNNts2RcQxkImM5TfkEj8sWugCvkHVzWRDPY+wCMnYeGcspyidWEFQAjFRtc+E5OY5rCXwlF8ZxLXmZ8gmACN4//Y/9MiwujRUAgCSUT6ySYSNzT/bjhyzMNeAsOfKcaNdLsQyxRcsMklA+AQDXZFhcZtukZjvezIxfWG/3vDOn1tl9rx9hPASjfAJgN4sDzjB+uCXD5gggKxnLU5RPrJQ1oLIeN8BZ8g+gB0U+MJXyCQC4J0MBlXnTlOH6Zub6Qm8yYC7Xl4cpn+A+gQpzfS4NzDfOyFxAAQCUpnxiNZtLgHxk93nKsX2M3+9Fu0bmSz67x5Axs8/ue08SyicAoAqbDwCAgJRP7JClHc9ynJCVoiCXLJloXHFNlvELO8hNzpKxfEv5BAAAe9j0A8wjYwNRPgEAj8ryyabFJtdkGb+7RLs+5jHkEi1DCEb5xC7Rwyn68UF2XzcV5hwA5OQZDnxL+QQAPCPLJsNbE1yTZfzCKrKSkWQsNymf4HdCE+ay0M0vS04aa/CcaHPbHAYoQvnETtEWOAAwgw00UFWE9byMhQSUTwCsZIFYR4QNxyOMOb7KMnZhNvnIDDKWq5RP7BYtnKIdD3Rg3jGbDRbkZf4CFKB8AgBepTiEesxrAIZTPgGwik+v2cn4A/hpRCYqKoGHKZ+IIMqDK8pxAGSSKTsVUHzING53iHZ9zF3IJVqGEIDyCYAVbBwAfmeDxg7eeqIL4zQQ5RNR7A6G3X8fujL3ash0HxWh8Jho89rcBUhM+QTAbDYMPUTbqN4TaUxGOhagvm6Z0+18ISzlEwAzWfQBMIpnSgyZPmwAglA+EcmuB5kHKMAYmfLUJha+l2lO8z25B2yjfAJgFotcuLCBj8l9ycmzZa+I8ybiMeG+8IXyie6EIsxhc9BXplw1TuF7meY0t8k7YCvlE9FY4EAf5jsR2JDB96LltXm7R7RxACSifAJgNJsCbFCeY870ZJ6wSveM6X7+XcnYYJRPRLQqKAQSjGeBR0bGLXwv2rrJvH3MqOsU7f4DySifABjFRoDPsm1UjF/Ix7wFSEL5BAAAPCJbqdydt56AMJRPRDX7IechCmM9u8A1B3vIdp93vkXhDQ6yiDavzZ3rFE+/Mk5gM+UTAGdZ0HFPto3LrPGc7Towl/EwlufQrzpeD3OKz4yHgJRPRCY0IL6OC1yA7iKu0TyPxot4n4GklE905EEKY1jo86hsubtrbJtTZBJxXptDrsE9rg1sNL98+usvkxyglvfDAo76jPH63OPzFFCxjDz3iPeWXDrPxWn+98cfaa+rN5+IbvSDz4MUzhnxwDMPe3Lf4aLaXIh4Pmk3ZyconuDC+A0qb/nkjSqA1eQu3Ywe848siM0zMoq42es0lxRPFzIWXrTijaq85RMAq/iaHaNk3NQY+4yUcQ5k1mH+Kp7gJ2M4MOUTGYwKEWEEz+uwcIdozDsyirrOqjqffDD0OtcNNphbPs3+apyv3gHM0mVR2+Eco4m6Qb3HOKnHPZ0j6vyudr9nnE/Ue0dO1eZcCLO/Gjf7v+/NJ7LwQKzLwymWLqVTZB2uf8ZMH3VfMp47Y3S591HPs8LzbdY5RL1nr6h0LjzHvQ9uXvm06q0kbz/xGGEEt70f6xbl5iI8xvqGzN6OuHmfdW7NOu6o92m2rOOAplb8IPjsv+PNJ4CeVhZOcE3GDc/q+WJ+zuG6rhN1nmd6/s081qj3Z5UsYyAb15Wr5pRPq99G8vZTF90fkBWZu/O93/gfsa9D5GPrbsS98Tzrp/M9j3zukZ+Js48t8n05q/K5cV3pe77qrafZf+/H8P+iIoh4SocRU8gxWOPtMN++8354jpFf9Ln+cWwR5trs6xThHCORsYS2uniaqc7X7pReXXg41GHOslOG8ZfhGLtyb/Lace+sXS4yXIddbwiv+rsZ7gG5ydgiZpReY8un3QXQ7r8PwD1RFgeZnhWZjvVVUcbFs87em2fOu8M4oIfIP0T+1cyvq+/4KnyW6z6KjCW93W89jf77b+/vg/57kYqfv//uFq7dPDPWjIWY4uQFK0WZj9nGX5TrNlu2+3Ic5++N59l6q8eZ+3ZbxjmfVddxKGPXk7GD7C6ePvvvP/8Muc5j3nyKVDwdR7zjYbSyIdOE+clOGcdfxmPuwttPubiGsWR6Cyqr7tdYxq7lGg4SqXg6jnHHc+7Npwwlj7egqnp07Ln/scTPDGbaPR+zj7/d12+FrPfozL159pw7jIMZ/A5JfFnnf0TG3k8ydg0ZO0C00umaM29Bvf7mU4bi6TjyHCfUZy6yS+R/SvsZFc6hqjP35tlFnHFAVeU2kpu4jr+SsaSQoXg6jnPH+dybTxWKHG9CVfLdeHSvY8ifG4ywaz5WHX+V8y3rPfP2U1w+kc8naw7sZMzdJmPnkrEvylI43fPMm1Bv73/+mf6Ep1FURad8ik228NnK+dhp7FXMucz3TwEVkx/AzStzHqxivD1Gxs4jYz+pUCjN8mP3AcAJb4dFyW6uPzsZf/evQejF2R2Zs/39WHfdV/6tzLKOJS4+j3H38lfm/1wy9jHmJQ8b86/dQTweFgB5Zc7wVxfir5yzRf99vgpSS/d/ue2D6/AaGTuejOUp3nwCAMjLp/NxuA9rdHwbytjaR8bG4T4k99wPjkNM1waxcALIL/Mi5dXn0Mo3pyrziXw/mfPiGuNpDhk7hozlab52BwAw3uoNTrWN9xk2RT29fflfNtmPPwsZe56M5SXefKKKzwNZOAHUkX2hsvp3Rro/A22KuCdSnhg3+8jY18lYXqZ8ogrlE0BNFRYqCqg1bIo4Y/T4MTZik7HPk7Gc4gfHAYDI3o4aBdSzzpz3x/9fp0V7xzHCWJ3mCzL2WTKW0/zmE1V0Cn+AbrJn/K4fuO2yWdh1ntnHJXQnYx8jYxlC+UQlfqARgKh2Ld4rb47eD5siYC8ZO4eMLUj5BABkUGEh+soifsR579xAzLLzfCqMReBCxl4nYxnOD44DAJlUWLis/gHyEX8/it33P/O1A26TsRcylmm8+QQAsNauN6DO/P0Idh+3TRHUJWP3H7eMLU75BABk0nlxOnpztHuj8agIx9p53EEXMnYfGduAr90BABlVWMC8utiede7RFv9R7nG06wLMJWPXinZdmET5BABkVGUBE62AOo69G4Fo99WmCHqSsWvI2EaUTwBAVlUWMRELqM9mbg6i3kMbIkDGziNjG1I+AQCZVVnIRC+grtn9r/bNYlMEfJCx48nYppRPAEBmlRYyZxbkla7DTjZFwDUydgwZ25h/7Q4AyKzSQvbM5qbSddjh7XANgdvkwzkyFuUTAJBepQWtAmo91w14hKx4jevGcRy+dgcA1FFpUXN2sV7pWsxiQwS8SsZ+T8byC28+AQDEc3ZjY9F/n+sDnCFD7nN9+I03nwCASqotbEYs4KtdkzNsiIDRZOxPMpablE8AQDXVFjejFvPVrsszbIiA2WQs3KF8AgAqqrbAGbmwr3Zt7rEhAlaTsXCF8gkAqKriIkcJ9RgbImA3GQuf/Nh9AAAAPOz9GLfo//jvVNkg2QwBkchY+MSbTwBAZVUXOrM2Admul80QkImMpS3lEwBQXdXFzopNQcRrZzMEVCFjaUP5BAB0UHnBs3KjsPo62gQBnchYylI+AQBdVF70RNhAvHp9Ixw7QHQyltSUTwBAJ5UXPjYYAEBI/9l9AAAAC1UuaN6P2uUaAJCU8gkA6KZyAXUcCigAIBjlEwDQUYcCSgkFAISgfAIAuqpeQB2HAgoACED5BAB01qWAUkIBANsonwCA7joUUMehhAIANlE+AQD0KaCOQwkFACymfAIAuOhUQB2HEgoAWET5BADwU7cC6jiUUADAZMonAIBfdSygjkMJBQBM8mP3AQAABPRRQHUsYz6fc9ciDgAYyJtPAAC3dS9fvA0FAJymfAIAuK97AXUcP0soRRQA8DRfuwMA+F7nr+F99fUaKOcAgLuUTwAAj3s7FFBfXbseCikA4F/KJwCA5yigvnfr+iilAKAh5RMAwPN8De81j14vJRUAFOIHxwEAXvd2KEoAAO5SPgEAnKeAAgC4QfkEADCGt6DGcA0BoBi/+QQAMJbfg3qN0gkAilI+AQDMoYR6jNIJAIpTPgEAzKWEuk7pBABNKJ8AANZQQl0onQCgGeUTAMBaHUsohRMANKZ8AgDY43MhU7WIUjoBAMonAIAAKhVRCicA4BfKJwCAWLIVUcomAOAu5RMAQFzXip3dhZSyCQB4ivIJACCXW+XP6FJKyQQADPF/G7M0jsazQsQAAAAASUVORK5CYII="/></a>
-<nav class="nav-links"><div class="user-status standard" id="userStatus"><span class="status-dot"></span><span class="status-text" id="statusText">STANDARD</span></div><button class="auth-btn" id="loginBtn" type="button">Login</button><button class="logout-btn" id="logoutBtn" type="button">Logout</button><button class="admin-btn" id="adminBtn" type="button">Admin</button><button class="subscribe-btn" id="subscribeBtn" type="button">Subscribe</button></nav>
+<nav class="nav-links"><div class="username-badge" id="usernameBadge"></div><div class="user-status standard" id="userStatus"><span class="status-dot"></span><span class="status-text" id="statusText">STANDARD</span></div><button class="auth-btn" id="loginBtn" type="button">Login</button><button class="logout-btn" id="logoutBtn" type="button">Logout</button><button class="admin-btn" id="adminBtn" type="button">Admin</button><button class="subscribe-btn" id="subscribeBtn" type="button">Subscribe</button></nav>
 </header>
 <main>
 <section class="hero" id="home">
@@ -1372,6 +1499,20 @@
       <div class="admin-message" id="adminMessage"></div>
     </div>
 
+
+    <div class="admin-user-tools">
+      <h3>Manage Premium Users</h3>
+      <p>Search by username or email, then grant premium access for a selected duration. You can also return an account back to standard.</p>
+
+      <div class="admin-user-search">
+        <input id="adminUserSearch" type="text" placeholder="Search username or email" />
+        <button class="button" id="adminUserSearchBtn" type="button">Search Users</button>
+      </div>
+
+      <div class="admin-message" id="adminUserMessage"></div>
+      <div class="admin-users-list" id="adminUsersList"></div>
+    </div>
+
     <h3>Uploaded Gallery Items</h3>
     <div class="admin-list" id="adminItemsList"></div>
   </div>
@@ -1391,6 +1532,7 @@
     const close = document.getElementById("close");
     let activeFilter = "all";
 
+    const usernameBadge = document.getElementById("usernameBadge");
     const userStatus = document.getElementById("userStatus");
     const statusText = document.getElementById("statusText");
     const loginBtn = document.getElementById("loginBtn");
@@ -1412,6 +1554,10 @@
     let editingGalleryItemId = null;
     const adminMessage = document.getElementById("adminMessage");
     const adminItemsList = document.getElementById("adminItemsList");
+    const adminUserSearch = document.getElementById("adminUserSearch");
+    const adminUserSearchBtn = document.getElementById("adminUserSearchBtn");
+    const adminUserMessage = document.getElementById("adminUserMessage");
+    const adminUsersList = document.getElementById("adminUsersList");
 
     function openAdminDashboard() {
       if (currentProfile?.role !== "admin") {
@@ -1422,6 +1568,7 @@
       adminModal.classList.add("show");
       adminModal.setAttribute("aria-hidden", "false");
       loadAdminItems();
+      loadAdminUsers();
     }
 
     function closeAdminDashboard() {
@@ -1657,8 +1804,139 @@
       }
     }
 
+
+    async function loadAdminUsers() {
+      if (!adminUsersList) return;
+
+      if (currentProfile?.role !== "admin") {
+        adminUsersList.innerHTML = "";
+        return;
+      }
+
+      const searchTerm = adminUserSearch.value.trim();
+
+      adminUsersList.innerHTML = `<div class="admin-message">Loading users...</div>`;
+
+      let query = supabaseClient
+        .from("profiles")
+        .select("id, username, email, role, status, premium_expiry")
+        .order("email", { ascending: true })
+        .limit(25);
+
+      if (searchTerm) {
+        const safeSearch = searchTerm.replace(/[%_]/g, "");
+        query = query.or(`email.ilike.%${safeSearch}%,username.ilike.%${safeSearch}%`);
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        adminUsersList.innerHTML = `<div class="admin-message">${escapeHtml(error.message)}</div>`;
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        adminUsersList.innerHTML = `<div class="admin-message">No users found.</div>`;
+        return;
+      }
+
+      adminUsersList.innerHTML = data.map(user => {
+        const active = isPremiumActive(user);
+        const roleText = user.role === "admin" ? "Admin" : (active ? "Premium" : "Standard");
+        return `
+          <div class="admin-user-card">
+            <div>
+              <div class="admin-user-name">@${escapeHtml(user.username || user.email?.split("@")[0] || "user")}</div>
+              <div class="admin-user-meta">${escapeHtml(user.email || "No email")}</div>
+              <div class="admin-user-meta">Status: ${escapeHtml(roleText)} / Expiry: ${escapeHtml(formatPremiumExpiry(user.premium_expiry))}</div>
+            </div>
+            <div class="admin-user-controls">
+              <select id="duration-${user.id}">
+                <option value="1d">1 Day</option>
+                <option value="3d">3 Days</option>
+                <option value="7d" selected>7 Days</option>
+                <option value="14d">14 Days</option>
+                <option value="30d">30 Days</option>
+                <option value="90d">90 Days</option>
+                <option value="365d">1 Year</option>
+              </select>
+              <button class="admin-secondary" type="button" onclick="grantPremiumAccess('${user.id}')">Grant Premium</button>
+              <button class="admin-danger" type="button" onclick="setStandardAccess('${user.id}')">Set Standard</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function grantPremiumAccess(userId) {
+      if (currentProfile?.role !== "admin") {
+        alert("Admin access only.");
+        return;
+      }
+
+      const duration = document.getElementById(`duration-${userId}`)?.value || "7d";
+      const expiry = calculatePremiumExpiry(duration);
+
+      adminUserMessage.textContent = "Granting premium access...";
+
+      const { error } = await supabaseClient
+        .from("profiles")
+        .update({
+          status: "premium",
+          premium_expiry: expiry
+        })
+        .eq("id", userId);
+
+      if (error) {
+        adminUserMessage.textContent = error.message;
+        return;
+      }
+
+      adminUserMessage.textContent = "Premium access granted.";
+      await loadAdminUsers();
+
+      if (currentUser?.id === userId) {
+        await refreshUser();
+      }
+    }
+
+    async function setStandardAccess(userId) {
+      if (currentProfile?.role !== "admin") {
+        alert("Admin access only.");
+        return;
+      }
+
+      const confirmed = confirm("Set this user back to STANDARD?");
+      if (!confirmed) return;
+
+      adminUserMessage.textContent = "Updating user access...";
+
+      const { error } = await supabaseClient
+        .from("profiles")
+        .update({
+          status: "standard",
+          premium_expiry: null
+        })
+        .eq("id", userId);
+
+      if (error) {
+        adminUserMessage.textContent = error.message;
+        return;
+      }
+
+      adminUserMessage.textContent = "User set to standard.";
+      await loadAdminUsers();
+
+      if (currentUser?.id === userId) {
+        await refreshUser();
+      }
+    }
+
+
     window.startEditGalleryItem = startEditGalleryItem;
     window.deleteGalleryItem = deleteGalleryItem;
+    window.grantPremiumAccess = grantPremiumAccess;
+    window.setStandardAccess = setStandardAccess;
 
 
     let currentUser = null;
@@ -1742,14 +2020,53 @@
       authModal.setAttribute("aria-hidden", "true");
     }
 
+    function isPremiumActive(profile) {
+      if (!profile) return false;
+      if (profile.role === "admin") return true;
+      if (profile.status !== "premium") return false;
+      if (!profile.premium_expiry) return true;
+
+      const expiryTime = new Date(profile.premium_expiry).getTime();
+      if (Number.isNaN(expiryTime)) return false;
+
+      return expiryTime > Date.now();
+    }
+
+    function formatPremiumExpiry(value) {
+      if (!value) return "No expiry set";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "Invalid expiry";
+      return date.toLocaleString();
+    }
+
+    function calculatePremiumExpiry(duration) {
+      const now = new Date();
+      const value = String(duration || "7d");
+
+      if (value === "1d") now.setDate(now.getDate() + 1);
+      else if (value === "3d") now.setDate(now.getDate() + 3);
+      else if (value === "7d") now.setDate(now.getDate() + 7);
+      else if (value === "14d") now.setDate(now.getDate() + 14);
+      else if (value === "30d") now.setDate(now.getDate() + 30);
+      else if (value === "90d") now.setDate(now.getDate() + 90);
+      else if (value === "365d") now.setDate(now.getDate() + 365);
+      else now.setDate(now.getDate() + 7);
+
+      return now.toISOString();
+    }
+
     function setStatus(profile) {
       const isLoggedIn = !!currentUser;
-      const isPremium = profile?.status === "premium" || profile?.role === "admin";
+      const isPremium = isPremiumActive(profile);
       const isAdmin = profile?.role === "admin";
 
       userStatus.classList.toggle("premium", isPremium);
       userStatus.classList.toggle("standard", !isPremium);
       statusText.textContent = isPremium ? "PREMIUM" : "STANDARD";
+
+      const displayName = profile?.username || currentUser?.email?.split("@")[0] || "";
+      usernameBadge.textContent = displayName;
+      usernameBadge.style.display = isLoggedIn && displayName ? "inline-flex" : "none";
 
       loginBtn.style.display = isLoggedIn ? "none" : "inline-flex";
       logoutBtn.style.display = isLoggedIn ? "inline-flex" : "none";
@@ -1834,7 +2151,7 @@
         return;
       }
 
-      const isPremium = currentProfile?.status === "premium" || currentProfile?.role === "admin";
+      const isPremium = isPremiumActive(currentProfile);
 
       if (!isPremium) {
         alert("Premium access required. Subscribe to download original files.");
@@ -1899,6 +2216,10 @@
     adminUploadBtn.addEventListener("click", uploadGalleryItem);
     adminCancelEditBtn.addEventListener("click", resetAdminForm);
     adminRefreshBtn.addEventListener("click", loadAdminItems);
+    adminUserSearchBtn.addEventListener("click", loadAdminUsers);
+    adminUserSearch.addEventListener("keydown", event => {
+      if (event.key === "Enter") loadAdminUsers();
+    });
 
     authLogin.addEventListener("click", async () => {
       const email = document.getElementById("authEmail").value.trim();
