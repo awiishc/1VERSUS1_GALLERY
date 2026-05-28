@@ -1325,6 +1325,36 @@
       }
     }
 
+
+    .admin-video-tools {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .admin-video-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .admin-video-row input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: white;
+      padding: 12px 13px;
+      outline: none;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    @media (max-width: 760px) {
+      .admin-video-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -1514,6 +1544,20 @@
     </div>
 
 
+
+    <div class="admin-video-tools">
+      <h3>Tournament Video Button</h3>
+      <p>Add or replace the Google Drive link used by the <strong>TOURNAMENT VIDEO</strong> button on the page.</p>
+
+      <div class="admin-video-row">
+        <input id="adminTournamentVideoUrl" type="url" placeholder="Paste Google Drive video link" value="https://drive.google.com/file/d/11Dzub-Sz0miVOkGWAZfUoGP95iWcU2q-/view?usp=sharing" />
+        <button class="button" id="adminSaveTournamentVideoBtn" type="button">Save Video Link</button>
+      </div>
+
+      <div class="admin-message" id="adminTournamentVideoMessage"></div>
+    </div>
+
+
     <div class="admin-user-tools">
       <h3>Manage Premium Users</h3>
       <p>Search by username or email, then grant premium access for a selected duration. You can also return an account back to standard.</p>
@@ -1546,6 +1590,7 @@
     const modalImg = document.getElementById("modalImg");
     const close = document.getElementById("close");
     let activeFilter = "all";
+    let tournamentVideoUrl = "https://drive.google.com/file/d/11Dzub-Sz0miVOkGWAZfUoGP95iWcU2q-/view?usp=sharing";
 
     const usernameBadge = document.getElementById("usernameBadge");
     const userStatus = document.getElementById("userStatus");
@@ -1554,6 +1599,7 @@
     const logoutBtn = document.getElementById("logoutBtn");
     const adminBtn = document.getElementById("adminBtn");
     const subscribeBtn = document.getElementById("subscribeBtn");
+    const tournamentVideoBtn = document.getElementById("tournamentVideoBtn");
     const authModal = document.getElementById("authModal");
     const authClose = document.getElementById("authClose");
     const authLogin = document.getElementById("authLogin");
@@ -1573,6 +1619,93 @@
     const adminUserSearchBtn = document.getElementById("adminUserSearchBtn");
     const adminUserMessage = document.getElementById("adminUserMessage");
     const adminUsersList = document.getElementById("adminUsersList");
+    const adminTournamentVideoUrl = document.getElementById("adminTournamentVideoUrl");
+    const adminSaveTournamentVideoBtn = document.getElementById("adminSaveTournamentVideoBtn");
+    const adminTournamentVideoMessage = document.getElementById("adminTournamentVideoMessage");
+
+
+    function setTournamentVideoButton(url) {
+      tournamentVideoUrl = url || tournamentVideoUrl;
+
+      if (tournamentVideoBtn) {
+        tournamentVideoBtn.href = tournamentVideoUrl;
+        tournamentVideoBtn.target = "_blank";
+        tournamentVideoBtn.rel = "noopener noreferrer";
+      }
+
+      if (adminTournamentVideoUrl) {
+        adminTournamentVideoUrl.value = tournamentVideoUrl;
+      }
+    }
+
+    function cleanGoogleDriveUrl(url) {
+      const value = String(url || "").trim();
+
+      if (!value) return "";
+
+      if (!/^https?:\/\//i.test(value)) {
+        throw new Error("Please enter a full link starting with https://");
+      }
+
+      return value;
+    }
+
+    async function loadTournamentVideoSetting() {
+      setTournamentVideoButton(tournamentVideoUrl);
+
+      try {
+        const { data, error } = await supabaseClient
+          .from("site_settings")
+          .select("value")
+          .eq("key", "tournament_video_url")
+          .maybeSingle();
+
+        if (error) throw error;
+
+        if (data?.value) {
+          setTournamentVideoButton(data.value);
+        }
+      } catch (error) {
+        if (adminTournamentVideoMessage && currentProfile?.role === "admin") {
+          adminTournamentVideoMessage.textContent = "Using default video link. Create site_settings table to save links from dashboard.";
+        }
+      }
+    }
+
+    async function saveTournamentVideoSetting() {
+      if (currentProfile?.role !== "admin") {
+        alert("Admin access only.");
+        return;
+      }
+
+      adminTournamentVideoMessage.textContent = "Saving video link...";
+
+      try {
+        const url = cleanGoogleDriveUrl(adminTournamentVideoUrl.value);
+
+        if (!url) {
+          adminTournamentVideoMessage.textContent = "Paste a Google Drive link first.";
+          return;
+        }
+
+        const { error } = await supabaseClient
+          .from("site_settings")
+          .upsert({
+            key: "tournament_video_url",
+            value: url,
+            updated_at: new Date().toISOString()
+          }, {
+            onConflict: "key"
+          });
+
+        if (error) throw error;
+
+        setTournamentVideoButton(url);
+        adminTournamentVideoMessage.textContent = "Tournament video link updated.";
+      } catch (error) {
+        adminTournamentVideoMessage.textContent = error?.message || "Could not save video link.";
+      }
+    }
 
     function openAdminDashboard() {
       if (currentProfile?.role !== "admin") {
@@ -1584,6 +1717,7 @@
       adminModal.setAttribute("aria-hidden", "false");
       loadAdminItems();
       loadAdminUsers();
+      loadTournamentVideoSetting();
     }
 
     function closeAdminDashboard() {
@@ -2231,6 +2365,7 @@
     adminUploadBtn.addEventListener("click", uploadGalleryItem);
     adminCancelEditBtn.addEventListener("click", resetAdminForm);
     adminRefreshBtn.addEventListener("click", loadAdminItems);
+    adminSaveTournamentVideoBtn.addEventListener("click", saveTournamentVideoSetting);
     adminUserSearchBtn.addEventListener("click", loadAdminUsers);
     adminUserSearch.addEventListener("keydown", event => {
       if (event.key === "Enter") loadAdminUsers();
@@ -2344,6 +2479,7 @@
       renderFilterButtons();
       applyFilter(activeFilter);
       refreshUser();
+      loadTournamentVideoSetting();
       loadGalleryFromSupabase();
     });
   </script>
