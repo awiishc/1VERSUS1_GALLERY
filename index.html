@@ -2303,7 +2303,7 @@
 
       const { data: item, error: itemError } = await supabaseClient
         .from("gallery_items")
-        .select("id, premium_only")
+        .select("id, title, original_file_path, premium_only")
         .eq("id", itemId)
         .single();
 
@@ -2320,6 +2320,29 @@
         return;
       }
 
+      if (!item.original_file_path) {
+        alert("Original file path is missing for this gallery item.");
+        return;
+      }
+
+      // FREE DOWNLOADS: skip the Edge Function completely.
+      // This prevents free items from being blocked by premium-only Edge Function checks.
+      if (!needsPremium) {
+        const fileName = item.original_file_path.split("/").pop() || `${item.title || "1versus1-download"}`;
+        const { data: signedData, error: signedError } = await supabaseClient.storage
+          .from("premium-originals")
+          .createSignedUrl(item.original_file_path, 60 * 10, { download: fileName });
+
+        if (signedError || !signedData?.signedUrl) {
+          alert(signedError?.message || "Could not create free download link. Check the premium-originals storage SELECT policy for authenticated users.");
+          return;
+        }
+
+        window.open(signedData.signedUrl, "_blank");
+        return;
+      }
+
+      // PREMIUM DOWNLOADS: keep using the Edge Function for premium access control.
       const { data, error } = await supabaseClient.functions.invoke("create-download-link", {
         body: { itemId: itemId }
       });
