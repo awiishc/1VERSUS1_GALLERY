@@ -1591,6 +1591,7 @@
     const close = document.getElementById("close");
     let activeFilter = "all";
     let tournamentVideoUrl = "https://drive.google.com/file/d/11Dzub-Sz0miVOkGWAZfUoGP95iWcU2q-/view?usp=sharing";
+    const EMAIL_REDIRECT_URL = "https://1-versus-1-gallery-qpox.vercel.app/";
 
     const usernameBadge = document.getElementById("usernameBadge");
     const userStatus = document.getElementById("userStatus");
@@ -2426,7 +2427,10 @@
           supabaseClient.auth.signUp({
             email,
             password,
-            options: { data: { username } }
+            options: {
+              data: { username },
+              emailRedirectTo: EMAIL_REDIRECT_URL
+            }
           }),
           15000,
           "Signup"
