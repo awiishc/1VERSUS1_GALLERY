@@ -2297,14 +2297,26 @@
       await refreshUser();
 
       if (!currentUser) {
-        openAuth("Login first to download premium gallery content.");
+        openAuth("Login first to download gallery content.");
         return;
       }
 
-      const isPremium = isPremiumActive(currentProfile);
+      const { data: item, error: itemError } = await supabaseClient
+        .from("gallery_items")
+        .select("id, premium_only")
+        .eq("id", itemId)
+        .single();
 
-      if (!isPremium) {
-        alert("Premium access required. Subscribe to download original files.");
+      if (itemError || !item) {
+        alert(itemError?.message || "Could not check this gallery item.");
+        return;
+      }
+
+      const needsPremium = item.premium_only === true || item.premium_only === "true";
+      const hasPremium = isPremiumActive(currentProfile);
+
+      if (needsPremium && !hasPremium) {
+        alert("Premium access required. Subscribe to download this premium file.");
         return;
       }
 
