@@ -2303,7 +2303,7 @@
 
       const { data: item, error: itemError } = await supabaseClient
         .from("gallery_items")
-        .select("id, title, original_file_path, premium_only")
+        .select("id, title, preview_url, original_file_path, premium_only")
         .eq("id", itemId)
         .single();
 
@@ -2334,7 +2334,15 @@
           .createSignedUrl(item.original_file_path, 60 * 10, { download: fileName });
 
         if (signedError || !signedData?.signedUrl) {
-          alert(signedError?.message || "Could not create free download link. Check the premium-originals storage SELECT policy for authenticated users.");
+          // Fallback for STANDARD users:
+          // If Supabase Storage policy blocks signed URLs from premium-originals,
+          // allow free items to download/open the public preview instead of failing.
+          if (item.preview_url) {
+            window.open(item.preview_url, "_blank");
+            return;
+          }
+
+          alert((signedError?.message || "Could not create free download link.") + "\n\nFix needed in Supabase Storage: allow authenticated users to SELECT free files from premium-originals, or upload free-download files into a public bucket.");
           return;
         }
 
